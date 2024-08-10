@@ -1,54 +1,33 @@
-body{
-    height: auto;
-    width: auto;
-}
-.image_holder img{
-    max-width: 100px;
-    max-height: 100px;
-}
-#SearchButton{
-    font-family: "Poppins";
-    background-color:red ;
-    color: #ffffff;
-    font-size: 18px;
-    border-radius: 180px;
-    display: block;
-    border: none;
-    transition: all 0.04s linear;
-    top: 8px;
-    position: absolute;
-    left: 155px;
-}
-#SearchButton:hover{
-    cursor: pointer;
-    background-color: #FF474C;
-}
-#pop_up{
-    position: fixed;
-    border: 3px solid white;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: gray;
-    text-align: center;
-    width: 400px;
-    height: 40vh;
-    left: 35%;
-    top: 30%;
-    display: none;
+body {
+    font-family: Arial, sans-serif;
 }
 
-.esc{
-    background-color:red ;
-    color: #ffffff;
-    font-size: 20px;
-    border-radius: 100%;
-    display: block;
-    border: none;
-    transition: all 0.04s linear;
-    position: absolute;
-    top: 1px;
-    right: 1px;
+.search-container {
+    margin-bottom: 20px;
 }
-.esc:hover{
+
+.gallery {
+    display: grid;
+    gap: 10px;
+}
+
+.image-item {
     cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 100%;
+    height: auto;
+}
+
+.image-item:hover {
+    transform: scale(1.05);
+}
+
+.column-selector {
+    margin-bottom: 20px;
+}
+
+#image-info {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
 }
