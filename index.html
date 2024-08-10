@@ -1,27 +1,145 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css" type="text/css">
-    </head>
-    <body>
-        <input type="text" placeholder="Tìm kiếm ở đây"> <button id="SearchButton" onclick="search()">Search</button>
-         <div class="image-holder">
-            <img src="" alt="Image 1" data-image-index="1" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 2" data-image-index="2" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 3" data-image-index="3" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 4" data-image-index="4" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 5" data-image-index="5" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 6" data-image-index="6" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 7" data-image-index="7" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 8" data-image-index="8" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 9" data-image-index="9" onclick="ShowDataImage(this)">
-            <img src="" alt="Image 10" data-image-index="10" onclick="ShowDataImage(this)">
-            
-        </div>
-        <div id="pop_up">
-            <p>This is the data of image </p>
-            <button class="esc" onclick="escape()">X</button>
-        </div>
-        <script type="text/javascript" src="script.js"></script>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            gap: 10px;
+        }
+
+        .image-item {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: auto;
+        }
+
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+
+        .column-selector {
+            margin-bottom: 20px;
+        }
+
+        #image-info {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="Search images...">
+    <button id="search-button">Search</button>
+</div>
+
+<div class="column-selector">
+    <label for="columns">Number of columns: </label>
+    <select id="columns">
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<div id="image-info"></div>
+
+<script>
+    const gallery = document.getElementById('gallery');
+    const imageInfo = document.getElementById('image-info');
+    let imageData = [];
+
+    // Function to fetch 100 dummy images
+    function fetchImages() {
+        const images = [];
+        for (let i = 1; i <= 100; i++) {
+            images.push({
+                id: i,
+                src: `https://via.placeholder.com/150?text=Image+${i}`,
+                title: `Image ${i}`,
+                description: `This is Image ${i}`
+            });
+        }
+        return images;
+    }
+
+    // Function to render images in the gallery
+    function renderGallery(images) {
+        gallery.innerHTML = '';
+        images.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = image.src;
+            imgElement.alt = image.title;
+            imgElement.className = 'image-item';
+            imgElement.dataset.id = image.id;
+            gallery.appendChild(imgElement);
+        });
+    }
+
+    // Event listener for image click
+    gallery.addEventListener('click', (event) => {
+        const imageId = event.target.dataset.id;
+        const image = imageData.find(img => img.id == imageId);
+        if (image) {
+            displayImageInfo(image);
+        }
+    });
+
+    // Function to display image info
+    function displayImageInfo(image) {
+        imageInfo.innerHTML = `
+            <h3>${image.title}</h3>
+            <p>${image.description}</p>
+        `;
+        saveMetadata(image);
+    }
+
+    // Function to save metadata to a JSON file (simulation)
+    function saveMetadata(image) {
+        const metadata = JSON.stringify(image, null, 2);
+        console.log('Saving metadata:', metadata);
+        // Code to save metadata in a file (requires server-side implementation)
+    }
+
+    // Event listener for column selector
+    document.getElementById('columns').addEventListener('change', (event) => {
+        const columns = event.target.value;
+        gallery.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    });
+
+    // Event listener for search button
+    document.getElementById('search-button').addEventListener('click', () => {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const filteredImages = imageData.filter(image => image.title.toLowerCase().includes(searchTerm));
+        renderGallery(filteredImages);
+    });
+
+    // Initialize gallery with images
+    imageData = fetchImages();
+    renderGallery(imageData);
+</script>
+
+</body>
 </html>
