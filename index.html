@@ -5,21 +5,22 @@
     </head>
     <body>
         <input type="text" placeholder="Tìm kiếm ở đây"> <button id="SearchButton" onclick="search()">Search</button>
-        <div class="image-holder">
-            <img src="" alt="Image 1" onclick="ShowDataImage()">
-            <img src="" alt="Image 2" onclick="ShowDataImage()">
-            <img src="" alt="Image 3" onclick="ShowDataImage()">
-            <img src="" alt="Image 4" onclick="ShowDataImage()">
-            <img src="" alt="Image 5" onclick="ShowDataImage()">
-            <img src="" alt="Image 6" onclick="ShowDataImage()">
-            <img src="" alt="Image 7" onclick="ShowDataImage()">
-            <img src="" alt="Image 8" onclick="ShowDataImage()">
-            <img src="" alt="Image 9" onclick="ShowDataImage()">
-            <img src="" alt="Image 10" onclick="ShowDataImage()">
+         <div class="image-holder">
+            <img src="" alt="Image 1" data-image-index="1" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 2" data-image-index="2" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 3" data-image-index="3" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 4" data-image-index="4" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 5" data-image-index="5" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 6" data-image-index="6" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 7" data-image-index="7" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 8" data-image-index="8" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 9" data-image-index="9" onclick="ShowDataImage(this)">
+            <img src="" alt="Image 10" data-image-index="10" onclick="ShowDataImage(this)">
             
         </div>
         <div id="pop_up">
-            <p>This is the data of image 1</p>
+            <p>This is the data of image </p>
+            <button class="esc" onclick="escape()">X</button>
         </div>
         <script type="text/javascript" src="script.js"></script>
     </body>
