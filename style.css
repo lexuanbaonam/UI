@@ -23,3 +23,32 @@ body{
     cursor: pointer;
     background-color: #FF474C;
 }
+#pop_up{
+    position: fixed;
+    border: 3px solid white;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: gray;
+    text-align: center;
+    width: 400px;
+    height: 40vh;
+    left: 35%;
+    top: 30%;
+    display: none;
+}
+
+.esc{
+    background-color:red ;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 100%;
+    display: block;
+    border: none;
+    transition: all 0.04s linear;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.esc:hover{
+    cursor: pointer;
+}
