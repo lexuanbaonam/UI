@@ -1,6 +1,10 @@
 const gallery = document.getElementById('gallery');
 const imageInfo = document.getElementById('image-info');
+const questionInput = document.getElementById('question-input');
+const questionImageContainer = document.getElementById('question-image-container');
+const quizResult = document.getElementById('quiz-result');
 let imageData = [];
+let totalImages = 0; // Track the total number of images
 
 // Function to fetch 100 dummy images
 function fetchImages() {
@@ -27,6 +31,34 @@ function renderGallery(images) {
         imgElement.dataset.id = image.id;
         gallery.appendChild(imgElement);
     });
+    totalImages = images.length; // Update total number of images
+    updateQuizQuestion(); // Update the quiz question when gallery is updated
+}
+
+// Function to update quiz question
+function updateQuizQuestion() {
+    document.getElementById('quiz-question').textContent = `How many images are displayed? (Total: ${totalImages})`;
+}
+
+// Event listener for question input (handle Enter key)
+questionInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent default action of Enter key
+        const questionValue = questionInput.value.trim();
+        const questionNumber = parseInt(questionValue, 10);
+        const selectedImage = imageData.find(img => img.id === questionNumber);
+        if (selectedImage) {
+            displayQuestionImage(selectedImage);
+            document.getElementById('quiz-question').textContent = `Question ${questionNumber}:`;
+        } else {
+            questionImageContainer.innerHTML = 'No image found for the entered question number.';
+        }
+    }
+});
+
+// Function to display the selected question's image
+function displayQuestionImage(image) {
+    questionImageContainer.innerHTML = `<img src="${image.src}" alt="${image.title}" class="image-item">`;
 }
 
 // Event listener for image click
@@ -58,6 +90,7 @@ function saveMetadata(image) {
 document.getElementById('columns').addEventListener('change', (event) => {
     const columns = event.target.value;
     gallery.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    renderGallery(imageData); // Re-render gallery to reflect column change
 });
 
 // Event listener for search button
@@ -65,6 +98,20 @@ document.getElementById('search-button').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
     const filteredImages = imageData.filter(image => image.title.toLowerCase().includes(searchTerm));
     renderGallery(filteredImages);
+});
+
+// Event listener for quiz answer submission
+document.getElementById('submit-answer').addEventListener('click', () => {
+    const answer = parseInt(document.getElementById('quiz-answer').value, 10);
+    if (isNaN(answer)) {
+        quizResult.textContent = 'Please enter a valid number.';
+        return;
+    }
+    if (answer >= 35 && answer <= 50) {
+        quizResult.textContent = 'Correct! Well done.';
+    } else {
+        quizResult.textContent = 'Incorrect. Try again.';
+    }
 });
 
 // Initialize gallery with images
