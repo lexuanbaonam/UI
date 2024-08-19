@@ -117,3 +117,34 @@ document.getElementById('submit-answer').addEventListener('click', () => {
 // Initialize gallery with images
 imageData = fetchImages();
 renderGallery(imageData);
+
+// Function to retrieve information from data using a key name
+function get_info(data, key_name) {
+    if (data.hasOwnProperty(key_name)) {
+        return data[key_name]; 
+    }
+    return null;
+}
+
+// Fetch metadata from JSON file and process it
+fetch("MetaData.json")
+    .then(response => response.json())
+    .then(Mydata => {
+        console.log(Mydata);
+
+        const key_name = "L07_V027"; 
+        const DataInfo = get_info(Mydata, key_name);
+        const DataInfoDiv = document.getElementById("DataInfo");
+
+        if (DataInfo) {
+            DataInfo.forEach(video => {
+                console.log(video.author);
+                console.log(video.length);
+                console.log(video.title);
+                console.log(video.publish_date);
+                console.log("-----"); 
+            });
+        } else {
+            console.log(`Key "${key_name}" not found.`);
+        }
+    });
